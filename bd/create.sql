@@ -1,3 +1,6 @@
+CREATE DATABASE cybersecurite_platform;
+USE cybersecurite_platform;
+
 -- UTILISATEUR
 CREATE TABLE utilisateur (
     id_user INT AUTO_INCREMENT PRIMARY KEY,

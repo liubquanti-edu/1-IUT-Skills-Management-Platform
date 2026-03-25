@@ -1,3 +1,4 @@
+-- Active: 1774367331409@@localhost@3306@cybersecurite_platform
 -- UTILISATEUR
 INSERT INTO utilisateur (nom, email, password_hash, role, statut)
 VALUES
