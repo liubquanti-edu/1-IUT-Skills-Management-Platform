@@ -1,0 +1,86 @@
+:root {
+    --background-primary-color: #212834;
+    --background-secondary-color: #314866;
+    --background-thirdly-color: #254c63;
+    --affirmative-color: #063f41;
+    --negative-color: #99290f;
+    --text-color: #ffffff;
+    --border-color: #ffffff50;
+}
+
+* {
+    box-sizing: border-box;
+    color: var(--text-color);
+    font-family: 'Noto Sans Mono', monospace;
+}
+
+body {
+    background-color: var(--background-primary-color);
+    margin: 0;
+    padding: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-color: var(--border-color);
+    border: 3px solid var(--border-color);
+}
+
+th, td {
+    background-color: var(--background-secondary-color);
+    border: 3px solid var(--border-color);
+    text-align: center;
+}
+
+button {
+    background-color: var(--negative-color);
+    color: var(--text-color);
+    border: 3px solid var(--border-color);
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-secondary-color);
+    padding: 20px;
+    border: 3px solid var(--border-color);
+    max-width: 500px;
+    margin-bottom: 10px;
+}
+
+#userSearch {
+    margin-bottom: 10px;
+}
+
+.only-button {
+    display: inline-block;
+    padding: 0;
+    border: none;
+    margin: none;
+}
+
+label {
+    font-weight: bold;
+}
+
+input, select, textarea {
+    background-color: var(--background-thirdly-color);
+    color: var(--text-color);
+    border: 3px solid var(--border-color);
+    padding: 5px;
+    width: 100%;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px var(--background-thirdly-color) inset !important;
+    -webkit-text-fill-color: var(--text-color) !important;
+}

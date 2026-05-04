@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_id'] = $user['id_user'];
                 $_SESSION['user_nom'] = $user['nom'];
                 $_SESSION['user_role'] = $user['role'];
-                header('Location: dashboard.php');
+                header('Location: /dashboard/');
                 exit;
             }
         } catch (Throwable $e) {
@@ -39,18 +39,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Connexion</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-
     <h2>Connexion</h2>
     <?php if ($errors): ?>
         <ul><?php foreach ($errors as $err) echo '<li>' . htmlspecialchars($err) . '</li>'; ?></ul>
     <?php endif; ?>
     <form method="post" autocomplete="off">
-        <label>Email : <input type="email" name="email" required value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"></label><br>
-        <label>Mot de passe : <input type="password" name="password" required></label><br>
+        <label>Email<input type="email" name="email" required value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"></label><br>
+        <label>Mot de passe<input type="password" name="password" required></label><br>
         <button type="submit">Se connecter</button>
     </form>
-    <div>Pas encore de compte ? <a href="register.php">Inscription</a></div>
+    <div>Pas encore de compte ? <a href="/register/">Inscription</a></div>
 </body>
 </html>

@@ -50,8 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Inscription</title>
-</head>
-<body>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <h2>Inscription</h2>
@@ -62,11 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <ul><?php foreach ($errors as $err) echo '<li>' . htmlspecialchars($err) . '</li>'; ?></ul>
     <?php endif; ?>
     <form method="post" autocomplete="off">
-        <label>Nom : <input type="text" name="nom" required value="<?= htmlspecialchars($_POST['nom'] ?? '') ?>"></label><br>
-        <label>Prénom : <input type="text" name="prenom" required value="<?= htmlspecialchars($_POST['prenom'] ?? '') ?>"></label><br>
-        <label>Email : <input type="email" name="email" required value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"></label><br>
-        <label>Mot de passe : <input type="password" name="password" required></label><br>
-        <label>Rôle demandé :
+        <label>Nom<input type="text" name="nom" required value="<?= htmlspecialchars($_POST['nom'] ?? '') ?>"></label><br>
+        <label>Prénom<input type="text" name="prenom" required value="<?= htmlspecialchars($_POST['prenom'] ?? '') ?>"></label><br>
+        <label>Email<input type="email" name="email" required value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"></label><br>
+        <label>Mot de passe<input type="password" name="password" required></label><br>
+        <label>Rôle demandé
             <select name="role" required>
                 <option value="">Choisir</option>
                 <option value="etudiant" <?= (($_POST['role'] ?? '') === 'etudiant') ? 'selected' : '' ?>>Étudiant</option>
@@ -75,6 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </label><br>
         <button type="submit">S'inscrire</button>
     </form>
-    <div>Déjà inscrit ? <a href="login.php">Connexion</a></div>
+    <div>Déjà inscrit ? <a href="/login/">Connexion</a></div>
 </body>
 </html>
