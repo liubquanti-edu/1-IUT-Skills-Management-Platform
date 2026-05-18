@@ -43,14 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <h2>Connexion</h2>
-    <?php if ($errors): ?>
-        <ul><?php foreach ($errors as $err) echo '<li>' . htmlspecialchars($err) . '</li>'; ?></ul>
-    <?php endif; ?>
     <form method="post" autocomplete="off">
         <label>Email<input type="email" name="email" required value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"></label><br>
         <label>Mot de passe<input type="password" name="password" required></label><br>
         <button type="submit">Se connecter</button>
     </form>
     <div>Pas encore de compte ? <a href="/register/">Inscription</a></div>
+    <?php if ($errors): ?>
+        <?php foreach ($errors as $err) echo '<p class="fail">' . htmlspecialchars($err) . '</p>'; ?>
+    <?php endif; ?>
 </body>
 </html>

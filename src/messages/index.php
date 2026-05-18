@@ -95,7 +95,7 @@ if ($role === 'etudiant') {
             <?php endforeach; ?>
             </ul>
         <?php else: ?>
-            <p>Vous n'avez pas encore posé de questions.</p>
+            <p class="success">Vous n'avez pas encore posé de questions.</p>
         <?php endif; ?>
 
     <?php else: // Formateur ?>
@@ -128,10 +128,10 @@ if ($role === 'etudiant') {
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <p>Vous n'avez pas reçu de messages.</p>
+            <p class="success">Vous n'avez pas reçu de messages.</p>
         <?php endif; ?>
     <?php endif; ?>
 
-    <p><a href="/dashboard/">Retour au dashboard</a></p>
+    <p><a class="button-link" href="/dashboard/">Retour au dashboard</a></p>
 </body>
 </html>

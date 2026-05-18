@@ -13,7 +13,7 @@ $stmt->execute([$id_competence]);
 $qcm = $stmt->fetch();
 
 if (!$qcm) {
-    echo "<p>Aucun QCM disponible pour cette compétence.</p>";
+    echo "<p class=\"fail\">Aucun QCM disponible pour cette compétence.</p>";
     exit;
 }
 $id_qcm = $qcm['id_qcm'];
@@ -33,7 +33,7 @@ if ($last) {
 }
 
 if (!$canPass) {
-    echo "<p>Vous avez déjà passé ce QCM récemment. Prochain passage possible dans $days jour(s).</p>";
+    echo "<p class=\"fail\">Vous avez déjà passé ce QCM récemment. Prochain passage possible dans $days jour(s).</p>";
     exit;
 }
 
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Enregistrer la tentative
     $stmt = $pdo->prepare('INSERT INTO tentative_qcm (id_user, id_qcm, score) VALUES (?, ?, ?)');
     $stmt->execute([$userId, $id_qcm, $finalScore]);
-    echo "<h2>Résultat du QCM</h2><p>Score : $finalScore % ($score/$total bonnes réponses)</p>";
+    echo "<div class=\"success\"><h2>Résultat du QCM</h2><p>Score : $finalScore % ($score/$total bonnes réponses)</p></div>";
     exit;
 }
 

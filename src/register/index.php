@@ -55,10 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <h2>Inscription</h2>
     <?php if ($success): ?>
-        <div>Inscription réussie ! Votre compte doit être validé par un administrateur.</div>
+        <div class="success">Inscription réussie ! Votre compte doit être validé par un administrateur.</div>
     <?php endif; ?>
     <?php if ($errors): ?>
-        <ul><?php foreach ($errors as $err) echo '<li>' . htmlspecialchars($err) . '</li>'; ?></ul>
+        <ul class="fail"><?php foreach ($errors as $err) echo '<li>' . htmlspecialchars($err) . '</li>'; ?></ul>
     <?php endif; ?>
     <form method="post" autocomplete="off">
         <label>Nom<input type="text" name="nom" required value="<?= htmlspecialchars($_POST['nom'] ?? '') ?>"></label><br>

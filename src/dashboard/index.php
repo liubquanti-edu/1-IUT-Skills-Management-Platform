@@ -19,11 +19,11 @@ $role = $_SESSION['user_role'];
     <?php if ($role === 'etudiant'): ?>
         <h3>Actions disponibles</h3>
         <ul>
-            <li><a href="/competences/">Choisir une compétence</a> - Sélectionner une compétence et passer un QCM ou soumettre un projet</li>
-            <li><a href="/formations/">Consulter les formations</a> - Accéder aux ressources pédagogiques</li>
-            <li><a href="/criteres/">Critères de validation</a> - Voir les conditions à remplir pour valider chaque compétence</li>
-            <li><a href="/validations/">Mes validations</a> - Consulter mon statut de progression et résultats</li>
-            <li><a href="/messages/">Mes messages</a> - Poser des questions aux formateurs et consulter les réponses</li>
+            <li><a class="button-link" href="/competences/">Choisir une compétence</a> - Sélectionner une compétence et passer un QCM ou soumettre un projet</li>
+            <li><a class="button-link" href="/formations/">Consulter les formations</a> - Accéder aux ressources pédagogiques</li>
+            <li><a class="button-link" href="/criteres/">Critères de validation</a> - Voir les conditions à remplir pour valider chaque compétence</li>
+            <li><a class="button-link" href="/validations/">Mes validations</a> - Consulter mon statut de progression et résultats</li>
+            <li><a class="button-link" href="/messages/">Mes messages</a> - Poser des questions aux formateurs et consulter les réponses</li>
         </ul>
         
         <h3>Résumé</h3>
@@ -43,12 +43,12 @@ $role = $_SESSION['user_role'];
     <?php elseif ($role === 'formateur'): ?>
         <h3>Actions disponibles</h3>
         <ul>
-            <li><a href="/formations/">Gérer mes formations</a> - Créer et gérer mes ressources pédagogiques</li>
-            <li><a href="/qcm/">Gérer mes QCM</a> - Créer et éditer des questionnaires</li>
-            <li><a href="/criteres/">Définir les critères</a> - Spécifier les conditions de validation des compétences</li>
-            <li><a href="/projets/">Valider les projets</a> - Évaluer les projets soumis par les étudiants</li>
-            <li><a href="/messages/">Mes messages</a> - Consulter et répondre aux questions des étudiants</li>
-            <li><a href="/statistiques/">Statistiques</a> - Voir mes statistiques d'utilisation et performances</li>
+            <li><a class="button-link" href="/formations/">Gérer mes formations</a> - Créer et gérer mes ressources pédagogiques</li>
+            <li><a class="button-link" href="/qcm/">Gérer mes QCM</a> - Créer et éditer des questionnaires</li>
+            <li><a class="button-link" href="/criteres/">Définir les critères</a> - Spécifier les conditions de validation des compétences</li>
+            <li><a class="button-link" href="/projets/">Valider les projets</a> - Évaluer les projets soumis par les étudiants</li>
+            <li><a class="button-link" href="/messages/">Mes messages</a> - Consulter et répondre aux questions des étudiants</li>
+            <li><a class="button-link" href="/statistiques/">Statistiques</a> - Voir mes statistiques d'utilisation et performances</li>
         </ul>
         
         <h3>Résumé</h3>
@@ -87,17 +87,23 @@ $role = $_SESSION['user_role'];
         $enAttente = $pdo->query('SELECT id_user, nom, email, role FROM utilisateur WHERE statut = "en_attente"')->fetchAll();
         ?>
         <?php if ($enAttente): ?>
-            <ul>
-            <?php foreach ($enAttente as $u): ?>
-                <li><?= htmlspecialchars($u['nom']) ?> (<?= htmlspecialchars($u['email']) ?>, <?= htmlspecialchars($u['role']) ?>)
-                    <form method="post">
-                        <button type="submit" name="valider_user" value="<?= (int)$u['id_user'] ?>">Valider</button>
-                    </form>
-                </li>
-            <?php endforeach; ?>
-            </ul>
+            <table border="1" cellpadding="5">
+                <tr><th>Nom</th><th>Email</th><th>Rôle</th><th>Validation</th></tr>
+                <?php foreach ($enAttente as $u): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($u['nom']) ?></td>
+                        <td><?= htmlspecialchars($u['email']) ?></td>
+                        <td><?= htmlspecialchars($u['role']) ?></td>
+                        <td class="button-cell">
+                            <form method="post" class="only-button">
+                                <button type="submit" name="valider_user" value="<?= (int)$u['id_user'] ?>">Valider</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
         <?php else: ?>
-            <p>Aucune inscription en attente.</p>
+            <p class="success">Aucune inscription en attente.</p>
         <?php endif; ?>
 
         <h3>Gestion des comptes</h3>
@@ -112,7 +118,7 @@ $role = $_SESSION['user_role'];
             $newpass = bin2hex(random_bytes(4));
             $hash = password_hash($newpass, PASSWORD_DEFAULT);
             $pdo->prepare('UPDATE utilisateur SET password_hash = ? WHERE id_user = ?')->execute([$hash, $id]);
-            echo '<div>Mot de passe réinitialisé pour l\'utilisateur ID ' . $id . ': <b>' . $newpass . '</b></div>';
+            echo '<div class="success">Mot de passe réinitialisé pour l\'utilisateur ID ' . $id . ': <b>' . $newpass . '</b></div>';
         }
         $users = $pdo->query('SELECT id_user, nom, email, role, statut FROM utilisateur')->fetchAll();
         ?>
@@ -125,7 +131,7 @@ $role = $_SESSION['user_role'];
                     <td><?= htmlspecialchars($u['email']) ?></td>
                     <td><?= htmlspecialchars($u['role']) ?></td>
                     <td><?= htmlspecialchars($u['statut']) ?></td>
-                    <td>
+                    <td class="button-cell">
                         <form method="post" class="only-button">
                             <input type="hidden" name="statut" value="<?= htmlspecialchars($u['statut']) ?>">
                             <button type="submit" name="toggle_user" value="<?= (int)$u['id_user'] ?>">
@@ -133,7 +139,7 @@ $role = $_SESSION['user_role'];
                             </button>
                         </form>
                     </td>
-                    <td>
+                    <td class="button-cell">
                         <form method="post" class="only-button">
                             <button type="submit" name="reset_pass" value="<?= (int)$u['id_user'] ?>">Réinitialiser</button>
                         </form>
@@ -160,6 +166,6 @@ $role = $_SESSION['user_role'];
         <p>Rôle inconnu.</p>
     <?php endif; ?>
 
-    <p><a href="/logout/">Déconnexion</a></p>
+    <p><a class="button-link" href="/logout/">Déconnexion</a></p>
 </body>
 </html>

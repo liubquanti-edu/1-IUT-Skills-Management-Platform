@@ -69,6 +69,6 @@ $projets = $pdo->query('SELECT sp.id_soumission, sp.fichier, sp.date_soumission,
         <p>Aucun projet en attente.</p>
     <?php endif; ?>
 
-    <p><a href="/dashboard/">Retour au dashboard</a></p>
+    <p><a class="button-link" href="/dashboard/">Retour au dashboard</a></p>
 </body>
 </html>

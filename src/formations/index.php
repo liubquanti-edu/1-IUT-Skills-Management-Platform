@@ -105,8 +105,7 @@ if ($role === 'formateur') {
             
             <label>Associer à des compétences :</label><br>
             <?php foreach ($competences as $c): ?>
-                <input type="checkbox" name="competences[]" value="<?= $c['id_competence'] ?>">
-                <?= htmlspecialchars($c['nom']) ?><br>
+                <label class="checkbox-label"><input type="checkbox" name="competences[]" value="<?= $c['id_competence'] ?>"> <?= htmlspecialchars($c['nom']) ?></label>
             <?php endforeach; ?>
             <br>
             
@@ -134,7 +133,7 @@ if ($role === 'formateur') {
                 <?php endforeach; ?>
             </table>
         <?php else: ?>
-            <p>Vous n'avez pas encore créé de formations.</p>
+            <p class="success">Vous n'avez pas encore créé de formations.</p>
         <?php endif; ?>
 
     <?php else: // Étudiant ?>
@@ -169,10 +168,10 @@ if ($role === 'formateur') {
                 <?php endforeach; ?>
             </table>
         <?php else: ?>
-            <p>Aucune formation disponible.</p>
+            <p class="success">Aucune formation disponible.</p>
         <?php endif; ?>
     <?php endif; ?>
 
-    <p><a href="/dashboard/">Retour au dashboard</a></p>
+    <p><a class="button-link" href="/dashboard/">Retour au dashboard</a></p>
 </body>
 </html>

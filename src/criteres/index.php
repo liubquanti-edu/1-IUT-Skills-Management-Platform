@@ -103,6 +103,6 @@ $competences = $pdo->query('
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <p><a href="/dashboard/">Retour au dashboard</a></p>
+    <p><a class="button-link" href="/dashboard/">Retour au dashboard</a></p>
 </body>
 </html>

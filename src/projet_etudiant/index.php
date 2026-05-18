@@ -56,8 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <h2>Déposer un projet</h2>
-    <?php if ($message): ?><div><?= htmlspecialchars($message) ?></div><?php endif; ?>
-    <?php if ($errors): ?><ul><?php foreach ($errors as $e) echo '<li>' . htmlspecialchars($e) . '</li>'; ?></ul><?php endif; ?>
+    <?php if ($message): ?><div class="success"><?= htmlspecialchars($message) ?></div><?php endif; ?>
+    <?php if ($errors): ?><ul class="fail"><?php foreach ($errors as $e) echo '<li>' . htmlspecialchars($e) . '</li>'; ?></ul><?php endif; ?>
     <form method="post" enctype="multipart/form-data">
         <label>Compétence :
             <select name="competence" required>

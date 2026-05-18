@@ -103,7 +103,7 @@ $qcmsListData = $qcmsList->fetchAll();
             <p><b>Score minimum :</b> <?= (int)$statsQcmData['score_min'] ?>/100</p>
         </div>
     <?php else: ?>
-        <p>Aucune tentative de QCM enregistrée.</p>
+        <p class="success">Aucune tentative de QCM enregistrée.</p>
     <?php endif; ?>
 
     <h3>Statut des projets</h3>
@@ -118,7 +118,7 @@ $qcmsListData = $qcmsList->fetchAll();
             <?php endforeach; ?>
         </table>
     <?php else: ?>
-        <p>Aucun projet soumis.</p>
+        <p class="success">Aucun projet soumis.</p>
     <?php endif; ?>
 
     <h3>Détail par QCM</h3>
@@ -134,9 +134,9 @@ $qcmsListData = $qcmsList->fetchAll();
             <?php endforeach; ?>
         </table>
     <?php else: ?>
-        <p>Vous n'avez pas créé de QCM.</p>
+        <p class="success">Vous n'avez pas créé de QCM.</p>
     <?php endif; ?>
 
-    <p><a href="/dashboard/">Retour au dashboard</a></p>
+    <p><a class="button-link" href="/dashboard/">Retour au dashboard</a></p>
 </body>
 </html>

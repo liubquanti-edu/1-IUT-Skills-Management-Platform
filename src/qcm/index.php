@@ -99,8 +99,7 @@ $qcmsData = $qcms->fetchAll();
             
             <label>Associer à des compétences :</label><br>
             <?php foreach ($competences as $c): ?>
-                <input type="checkbox" name="competences[]" value="<?= $c['id_competence'] ?>">
-                <?= htmlspecialchars($c['nom']) ?><br>
+                <label class="checkbox-label"><input type="checkbox" name="competences[]" value="<?= $c['id_competence'] ?>"> <?= htmlspecialchars($c['nom']) ?></label>
             <?php endforeach; ?>
             <br>
             
@@ -115,10 +114,12 @@ $qcmsData = $qcms->fetchAll();
                     <tr>
                         <td><?= htmlspecialchars($q['titre']) ?></td>
                         <td>
-                            <a href="/qcm/?edit=<?= $q['id_qcm'] ?>">Éditer</a>
-                            <form method="post">
-                                <button type="submit" name="delete" value="<?= $q['id_qcm'] ?>" onclick="return confirm('Confirmer la suppression ?')">Supprimer</button>
-                            </form>
+                            <div class="actions-row">
+                                <a class="button-link" href="/qcm/?edit=<?= $q['id_qcm'] ?>">Éditer</a>
+                                <form method="post" class="only-button">
+                                    <button type="submit" name="delete" value="<?= $q['id_qcm'] ?>" onclick="return confirm('Confirmer la suppression ?')">Supprimer</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -150,8 +151,11 @@ $qcmsData = $qcms->fetchAll();
             
             <label>Réponses possibles :</label><br>
             <?php for ($i = 0; $i < 4; $i++): ?>
-                <input type="checkbox" name="correcte[]" value="<?= $i ?>"> Correcte
-                <input type="text" name="reponse[]" placeholder="Réponse <?= $i+1 ?>"><br>
+                <div class="checkbox-input-row">
+                    <input type="checkbox" name="correcte[]" value="<?= $i ?>">
+                    <span>Correcte</span>
+                    <input type="text" name="reponse[]" placeholder="Réponse <?= $i+1 ?>">
+                </div>
             <?php endfor; ?>
             <br>
             
@@ -182,9 +186,9 @@ $qcmsData = $qcms->fetchAll();
             <p>Aucune question ajoutée.</p>
         <?php endif; ?>
         
-        <p><a href="/qcm/">Retour à la liste</a></p>
+        <p><a class="button-link" href="/qcm/">Retour à la liste</a></p>
     <?php endif; ?>
 
-    <p><a href="/dashboard/">Retour au dashboard</a></p>
+    <p><a class="button-link" href="/dashboard/">Retour au dashboard</a></p>
 </body>
 </html>
