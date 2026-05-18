@@ -8,7 +8,7 @@ $userId = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 $competences = $pdo->query('SELECT id_competence, nom FROM competence ORDER BY nom')->fetchAll();
 
-// Traiter création (formateur)
+
 if ($role === 'formateur' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'create') {
     $titre = trim($_POST['titre']);
     $competencesSelected = isset($_POST['competences']) ? $_POST['competences'] : [];
@@ -37,7 +37,7 @@ if ($role === 'formateur' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_PO
     }
 }
 
-// Traiter suppression (formateur)
+
 if ($role === 'formateur' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     $id = (int)$_POST['delete'];
     $pdo->prepare('DELETE FROM formation WHERE id_formation = ? AND id_formateur = ?')->execute([$id, $userId]);
@@ -45,7 +45,7 @@ if ($role === 'formateur' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_PO
     exit;
 }
 
-// Filtrer formations (étudiant)
+
 $filterCompetence = isset($_GET['competence']) ? (int)$_GET['competence'] : null;
 
 if ($filterCompetence) {
@@ -69,7 +69,7 @@ if ($filterCompetence) {
     $formations = $stmt->fetchAll();
 }
 
-// Récupérer formations du formateur
+
 $mesFomations = null;
 if ($role === 'formateur') {
     $mesFomations = $pdo->prepare('
@@ -136,7 +136,7 @@ if ($role === 'formateur') {
             <p class="success">Vous n'avez pas encore créé de formations.</p>
         <?php endif; ?>
 
-    <?php else: // Étudiant ?>
+    <?php else:?>
         <label><b>Filtrer par compétence :</b></label>
         <form method="get">
             <select name="competence" onchange="this.form.submit()">

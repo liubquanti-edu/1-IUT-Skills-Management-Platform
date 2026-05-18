@@ -32,9 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
             $dest = $uploadDir . $safeName;
             if (move_uploaded_file($file['tmp_name'], $dest)) {
-                // Enregistrer en base
+                
                 $stmt = $pdo->prepare('INSERT INTO soumission_projet (id_projet, id_user, fichier, commentaire_formateur, statut) VALUES (?, ?, ?, ?, ?)');
-                // Trouver un projet lié à la compétence (ou null)
+                
                 $stmt2 = $pdo->prepare('SELECT id_projet FROM projet WHERE id_competence = ? LIMIT 1');
                 $stmt2->execute([$competence]);
                 $id_projet = $stmt2->fetchColumn();

@@ -7,7 +7,7 @@ $pdo = getDatabaseConnection();
 $userId = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 
-// Traiter réponse (formateur)
+
 if ($role === 'formateur' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'reply') {
     $messageId = (int)$_POST['message_id'];
     $reponse = trim($_POST['reponse']);
@@ -18,7 +18,7 @@ if ($role === 'formateur' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_PO
     }
 }
 
-// Traiter envoi (étudiant)
+
 if ($role === 'etudiant' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
     $contenu = trim($_POST['message']);
     $formateur = (int)$_POST['formateur'];
@@ -33,7 +33,7 @@ if ($role === 'etudiant' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POS
 $formateurs = $pdo->query('SELECT id_user, nom FROM utilisateur WHERE role = "formateur" ORDER BY nom')->fetchAll();
 
 if ($role === 'etudiant') {
-    // Afficher les messages de l'étudiant
+    
     $messages = $pdo->prepare('
         SELECT m.id_message, m.contenu, m.reponse, m.date_message, u.nom AS formateur
         FROM message m
@@ -44,7 +44,7 @@ if ($role === 'etudiant') {
     $messages->execute([$userId]);
     $messagesData = $messages->fetchAll();
 } else {
-    // Formateur voit tous ses messages
+    
     $messages = $pdo->prepare('
         SELECT m.id_message, m.contenu, m.reponse, m.date_message, u.nom AS etudiant
         FROM message m
@@ -98,7 +98,7 @@ if ($role === 'etudiant') {
             <p class="success">Vous n'avez pas encore posé de questions.</p>
         <?php endif; ?>
 
-    <?php else: // Formateur ?>
+    <?php else:?>
         <?php $nbNonRepondus = count(array_filter($messagesData, fn($m) => !$m['reponse'])); ?>
         <p><b><?= $nbNonRepondus ?></b> message(s) non répondu(s)</p>
 

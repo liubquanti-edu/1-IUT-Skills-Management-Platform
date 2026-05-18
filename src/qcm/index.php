@@ -7,7 +7,7 @@ $pdo = getDatabaseConnection();
 $formateurId = $_SESSION['user_id'];
 $competences = $pdo->query('SELECT id_competence, nom FROM competence ORDER BY nom')->fetchAll();
 
-// Traiter création QCM
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'create_qcm') {
     $titre = trim($_POST['titre']);
     $competencesSelected = isset($_POST['competences']) ? $_POST['competences'] : [];
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
-// Traiter suppression QCM
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     $id = (int)$_POST['delete'];
     $pdo->prepare('DELETE FROM qcm WHERE id_qcm = ? AND id_formateur = ?')->execute([$id, $formateurId]);
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     exit;
 }
 
-// Mode édition
+
 $editQcmId = isset($_GET['edit']) ? (int)$_GET['edit'] : null;
 if ($editQcmId) {
     $check = $pdo->prepare('SELECT id_qcm FROM qcm WHERE id_qcm = ? AND id_formateur = ?');
@@ -45,7 +45,7 @@ if ($editQcmId) {
     }
 }
 
-// Traiter ajout question
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add_question') {
     $qcmId = (int)$_POST['qcm_id'];
     $contenu = trim($_POST['contenu_question']);
@@ -68,13 +68,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
-// Traiter suppression question
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_question'])) {
     $questionId = (int)$_POST['delete_question'];
     $pdo->prepare('DELETE FROM question WHERE id_question = ?')->execute([$questionId]);
 }
 
-// Récupérer QCMs
+
 $qcms = $pdo->prepare('SELECT id_qcm, titre FROM qcm WHERE id_formateur = ? ORDER BY id_qcm DESC');
 $qcms->execute([$formateurId]);
 $qcmsData = $qcms->fetchAll();
@@ -128,7 +128,7 @@ $qcmsData = $qcms->fetchAll();
             <p>Vous n'avez pas encore créé de QCM.</p>
         <?php endif; ?>
 
-    <?php else: // Mode édition ?>
+    <?php else: ?>
         <?php
         $qcmInfo = $pdo->prepare('SELECT titre FROM qcm WHERE id_qcm = ?');
         $qcmInfo->execute([$editQcmId]);

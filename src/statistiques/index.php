@@ -6,7 +6,7 @@ require_once __DIR__ . '/../config/database.php';
 $pdo = getDatabaseConnection();
 $formateurId = $_SESSION['user_id'];
 
-// Stats
+
 $nbFormations = $pdo->prepare('SELECT COUNT(*) FROM formation WHERE id_formateur = ?');
 $nbFormations->execute([$formateurId]);
 $nbFormationsCount = $nbFormations->fetchColumn();
@@ -15,7 +15,7 @@ $nbQcm = $pdo->prepare('SELECT COUNT(*) FROM qcm WHERE id_formateur = ?');
 $nbQcm->execute([$formateurId]);
 $nbQcmCount = $nbQcm->fetchColumn();
 
-// Résultats QCM
+
 $statsQcm = $pdo->prepare('
     SELECT 
         COUNT(tq.id_tentative) AS nb_tentatives,
@@ -29,7 +29,7 @@ $statsQcm = $pdo->prepare('
 $statsQcm->execute([$formateurId]);
 $statsQcmData = $statsQcm->fetch();
 
-// Projets
+
 $projetsPending = $pdo->query('SELECT COUNT(*) FROM soumission_projet WHERE statut = "en_attente"')->fetchColumn();
 
 $projetsStats = $pdo->query('
@@ -38,7 +38,7 @@ $projetsStats = $pdo->query('
     GROUP BY sp.statut
 ')->fetchAll();
 
-// Messages
+
 $messagesStats = $pdo->prepare('
     SELECT 
         (SELECT COUNT(*) FROM message WHERE id_formateur = ? AND (reponse IS NULL OR reponse = "")) AS non_repondus,
@@ -47,7 +47,7 @@ $messagesStats = $pdo->prepare('
 $messagesStats->execute([$formateurId, $formateurId]);
 $messagesStatsData = $messagesStats->fetch();
 
-// Détail QCM
+
 $qcmsList = $pdo->prepare('
     SELECT 
         q.id_qcm, 

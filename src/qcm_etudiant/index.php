@@ -7,7 +7,7 @@ $pdo = getDatabaseConnection();
 $userId = $_SESSION['user_id'];
 $id_competence = isset($_GET['id_competence']) ? (int)$_GET['id_competence'] : 0;
 
-// Trouver le QCM lié à la compétence
+
 $stmt = $pdo->prepare('SELECT qcm.id_qcm, qcm.titre FROM qcm JOIN qcm_competence qc ON qcm.id_qcm = qc.id_qcm WHERE qc.id_competence = ? LIMIT 1');
 $stmt->execute([$id_competence]);
 $qcm = $stmt->fetch();
@@ -18,7 +18,7 @@ if (!$qcm) {
 }
 $id_qcm = $qcm['id_qcm'];
 
-// Vérifier la dernière tentative
+
 $stmt = $pdo->prepare('SELECT date_passage FROM tentative_qcm WHERE id_user = ? AND id_qcm = ? ORDER BY date_passage DESC LIMIT 1');
 $stmt->execute([$userId, $id_qcm]);
 $last = $stmt->fetch();
@@ -37,7 +37,7 @@ if (!$canPass) {
     exit;
 }
 
-// Si le formulaire est soumis, corriger et enregistrer
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $score = 0;
     $total = 0;
@@ -57,14 +57,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     $finalScore = $total ? round($score * 100 / $total) : 0;
-    // Enregistrer la tentative
+    
     $stmt = $pdo->prepare('INSERT INTO tentative_qcm (id_user, id_qcm, score) VALUES (?, ?, ?)');
     $stmt->execute([$userId, $id_qcm, $finalScore]);
     echo "<div class=\"success\"><h2>Résultat du QCM</h2><p>Score : $finalScore % ($score/$total bonnes réponses)</p></div>";
     exit;
 }
 
-// Afficher le QCM
+
 $stmt = $pdo->prepare('SELECT id_question, contenu FROM question WHERE id_qcm = ?');
 $stmt->execute([$id_qcm]);
 $questions = $stmt->fetchAll();

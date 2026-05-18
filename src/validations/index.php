@@ -6,7 +6,7 @@ require_once __DIR__ . '/../config/database.php';
 $pdo = getDatabaseConnection();
 $userId = $_SESSION['user_id'];
 
-// Compétences validées
+
 $validatedCompetences = $pdo->prepare('
     SELECT vc.id_validation, c.nom, vc.date_validation
     FROM validation_competence vc
@@ -17,7 +17,7 @@ $validatedCompetences = $pdo->prepare('
 $validatedCompetences->execute([$userId]);
 $competencesValidees = $validatedCompetences->fetchAll();
 
-// Projets soumis avec statut
+
 $projets = $pdo->prepare('
     SELECT sp.id_soumission, p.titre, c.nom AS competence, sp.statut, sp.date_soumission, sp.commentaire_formateur
     FROM soumission_projet sp
@@ -29,7 +29,7 @@ $projets = $pdo->prepare('
 $projets->execute([$userId]);
 $projetsData = $projets->fetchAll();
 
-// Tentatives QCM
+
 $qcms = $pdo->prepare('
     SELECT tq.id_tentative, q.titre, c.nom AS competence, tq.score, tq.date_passage
     FROM tentative_qcm tq

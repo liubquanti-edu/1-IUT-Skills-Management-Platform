@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } elseif ($user['statut'] !== 'valide') {
                 $errors[] = 'Votre compte n\'est pas encore validé par un administrateur.';
             } else {
-                // Authentification réussie
+                
                 $_SESSION['user_id'] = $user['id_user'];
                 $_SESSION['user_nom'] = $user['nom'];
                 $_SESSION['user_role'] = $user['role'];

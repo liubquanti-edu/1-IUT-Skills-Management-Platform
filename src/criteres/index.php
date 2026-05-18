@@ -6,7 +6,6 @@ require_once __DIR__ . '/../config/database.php';
 $pdo = getDatabaseConnection();
 $role = $_SESSION['user_role'];
 
-// Traiter mise à jour (formateur)
 if ($role === 'formateur' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'save') {
     $competenceId = (int)$_POST['competence_id'];
     $scoreMin = isset($_POST['score_min']) && $_POST['score_min'] !== '' ? (int)$_POST['score_min'] : null;
@@ -69,7 +68,7 @@ $competences = $pdo->query('
             </div>
         <?php endforeach; ?>
 
-    <?php else: // Étudiant ?>
+    <?php else: ?>
         <p>Voici les critères que vous devez remplir pour valider chaque compétence.</p>
 
         <?php foreach ($competences as $c): ?>

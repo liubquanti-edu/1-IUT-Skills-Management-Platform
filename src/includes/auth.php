@@ -1,8 +1,8 @@
 <?php
-// À inclure en haut de chaque page protégée
+
 session_start();
 
-// Vérifie si l'utilisateur est connecté
+
 function requireLogin() {
     if (!isset($_SESSION['user_id'])) {
         header('Location: ../pages/login.php');
@@ -10,7 +10,7 @@ function requireLogin() {
     }
 }
 
-// Vérifie si l'utilisateur a un rôle précis
+
 function requireRole(string $role) {
     requireLogin();
     if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== $role) {
@@ -20,7 +20,7 @@ function requireRole(string $role) {
     }
 }
 
-// Vérifie si l'utilisateur a un des rôles donnés (tableau)
+
 function requireAnyRole(array $roles) {
     requireLogin();
     if (!isset($_SESSION['user_role']) || !in_array($_SESSION['user_role'], $roles, true)) {
@@ -30,7 +30,7 @@ function requireAnyRole(array $roles) {
     }
 }
 
-// Raccourcis pour chaque rôle
+
 function requireEtudiant() { requireRole('etudiant'); }
 function requireFormateur() { requireRole('formateur'); }
 function requireAdmin() { requireRole('admin'); }

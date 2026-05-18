@@ -151,7 +151,7 @@ $role = $_SESSION['user_role'];
         document.getElementById('userSearch').addEventListener('input', function() {
             const filter = this.value.toLowerCase();
             const rows = document.querySelectorAll('#usersTable tr');
-            for (let i = 1; i < rows.length; i++) { // skip header
+            for (let i = 1; i < rows.length; i++) {
                 const name = rows[i].children[0].textContent.toLowerCase();
                 const email = rows[i].children[1].textContent.toLowerCase();
                 if (name.includes(filter) || email.includes(filter)) {
